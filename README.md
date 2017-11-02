@@ -1,25 +1,24 @@
 # 居于浏览器渲染原理的动画优化方式
 
 ## 1、 各大浏览器的内核。
->
-    * Google Chrome: 之前内核是webkit，现在是blink；
-    * Mozilla Firfox :Gecko;
-    * Opera: blink;
-    * Safari: webkit;
-    * IE: Trident;
-    * 360安全浏览器：IE内核；
-    * 360极速浏览器：Chromium和IE内核；
-    * QQ浏览器：普通模式-Trident，极速模式-webkit;
+
+* Google Chrome: 之前内核是webkit，现在是blink；
+* Mozilla Firfox :Gecko;
+* Opera: blink;
+* Safari: webkit;
+* IE: Trident;
+* 360安全浏览器：IE内核；
+* 360极速浏览器：Chromium和IE内核；
+* QQ浏览器：普通模式-Trident，极速模式-webkit;
 
 ## 2、浏览器的组件。
->
-    * 用户界面 － 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分。
-    * 浏览器引擎 － 用来查询及操作渲染引擎的接口。
-    * 渲染引擎 － 用来显示请求的内容，例如，如果请求内容为html，它负责解析html及css，并将解析后的结果显示出来。
-    * 网络 － 用来完成网络调用，例如http请求，它具有平台无关的接口，可以在不同平台上工作。
-    * UI后端 － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。
-    * JS解释器 － 用来解释执行JS代码。
-    * 数据存储 － 属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML5定义了web database技术，这是一种轻量级完整的客户端存储技术
+* 用户界面 － 包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分。
+* 浏览器引擎 － 用来查询及操作渲染引擎的接口。
+* 渲染引擎 － 用来显示请求的内容，例如，如果请求内容为html，它负责解析html及css，并将解析后的结果显示出来。
+* 网络 － 用来完成网络调用，例如http请求，它具有平台无关的接口，可以在不同平台上工作。
+* UI后端 － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。
+* JS解释器 － 用来解释执行JS代码。
+* 数据存储 － 属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML5定义了web database技术，这是一种轻量级完整的客户端存储技术
 
 ![image](./img/1.png)
 
@@ -33,32 +32,29 @@
 > 解析Dom Tree -----> 构建Render Tree -----> 布局Render Tree -----> 绘制Render Tree
 
 #### 详细过程：
->
-    * 下载文档后开始解析html，形成Dom Tree，也就是以树形结构的形式来将各个标签转化成树上的节点（node）。
-    * 然后解析外部的css文件以及内联样式，将CSS解析成树形的数据结构Css Rule Tree（style rules）。
-    * DOM和CSSOM（Css Rule Tree）合并后生成Render Tree。
-    * layout：有了Render Tree，浏览器就知道了网页中有哪些node、以及各个node的关系以及css定义，就可以计算出每个node在屏幕上的位置。
-    * Painting，即根据计算出来的规则，通过显卡将内容显示到屏幕上。
+* 下载文档后开始解析html，形成Dom Tree，也就是以树形结构的形式来将各个标签转化成树上的节点（node）。
+* 然后解析外部的css文件以及内联样式，将CSS解析成树形的数据结构Css Rule Tree（style rules）。
+* DOM和CSSOM（Css Rule Tree）合并后生成Render Tree。
+* layout：有了Render Tree，浏览器就知道了网页中有哪些node、以及各个node的关系以及css定义，就可以计算出每个node在屏幕上的位置。
+* Painting，即根据计算出来的规则，通过显卡将内容显示到屏幕上。
 
 > 下图为webkit的渲染流程：
 ![image](./img/3.png)
 
 ### [2]动画渲染流程
->
-    * JavaScript：JavaScript实现动画效果，DOM元素操作等。
-    * Style（计算样式）：确定每个DOM元素应该应用什么CSS规则。
-    * Layout（布局）：计算每个DOM元素在最终屏幕上显示的大小和位置。由于web页面的元素布局是相对的，所以其中任意一个元素的位置发生变化，都会联动的引起其他元素发生变化，这个过程叫reflow。
-    * Paint（绘制）：在多个层上绘制DOM元素的的文字、颜色、图像、边框和阴影等。
-    * Composite（渲染层合并）：按照合理的顺序合并图层然后显示到屏幕上。
+* JavaScript：JavaScript实现动画效果，DOM元素操作等。
+* Style（计算样式）：确定每个DOM元素应该应用什么CSS规则。
+* Layout（布局）：计算每个DOM元素在最终屏幕上显示的大小和位置。由于web页面的元素布局是相对的，所以其中任意一个元素的位置发生变化，都会联动的引起其他元素发生变化，这个过程叫reflow。
+* Paint（绘制）：在多个层上绘制DOM元素的的文字、颜色、图像、边框和阴影等。
+* Composite（渲染层合并）：按照合理的顺序合并图层然后显示到屏幕上。
 
 > 以下是常见的动画渲染过程：
 ![image](./img/4.png)
 
 
 ## 4、Reflow（回流）/Repaint（重绘）
->
-    * reflow：浏览器在得知元素发生了样式变化，并且对Dom Tree的排版有影响时，就会对所有受到影响的dom node进行重新的排版。例如：width、height、margin、padding、border-width等。
-    * repaint：浏览器在得知元素发生了样式变化，并且对Dom Tree的排版没有影响时，就会对该元素进行重绘。例如：color、background-color等不影响盒子形状的属性。
+* reflow：浏览器在得知元素发生了样式变化，并且对Dom Tree的排版有影响时，就会对所有受到影响的dom node进行重新的排版。例如：width、height、margin、padding、border-width等。
+* repaint：浏览器在得知元素发生了样式变化，并且对Dom Tree的排版没有影响时，就会对该元素进行重绘。例如：color、background-color等不影响盒子形状的属性。
 
 ## 5、compositor layer（合成渲染层）
 > 一个网页通常可以包含很多层，如下所示：
