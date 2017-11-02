@@ -19,7 +19,6 @@
 * UI后端 － 用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。
 * JS解释器 － 用来解释执行JS代码。
 * 数据存储 － 属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML5定义了web database技术，这是一种轻量级完整的客户端存储技术
-
 ![image](./img/1.png)
 
 ## 3、渲染引擎（Rendering Engine）
@@ -39,6 +38,7 @@
 * Painting，即根据计算出来的规则，通过显卡将内容显示到屏幕上。
 
 > 下图为webkit的渲染流程：
+>
 ![image](./img/3.png)
 
 ### [2]动画渲染流程
@@ -49,6 +49,7 @@
 * Composite（渲染层合并）：按照合理的顺序合并图层然后显示到屏幕上。
 
 > 以下是常见的动画渲染过程：
+>
 ![image](./img/4.png)
 
 
@@ -58,7 +59,9 @@
 
 ## 5、compositor layer（合成渲染层）
 > 一个网页通常可以包含很多层，如下所示：
+>
 ![image](./img/5.png)
+>
 > 对于transform/opacity 这两种变换，浏览器不会用repaint/reflow处理，而是在已经渲染好的元素基础上进行附加工作。例如一个黑底色的div,往右飞100px, 传统JS过程是对每次修改left值后重新画一个div。而如果我们用transform:translate(0,100px) ,transition:2s 浏览器则是把这个绘制好的div单独放在一个画面层再平移这个层过去，div的几何形状，颜色不会再重复计算，而是保留在这个图层中。
 > 可以通过3d变化的元素，来集中显卡资源渲染动画，例如：translate3d、translateZ，这样能使得动画更平滑。
 
@@ -72,9 +75,9 @@
 
 > 动画实现，避免使用setTimeout或setInterval，尽量使用requestAnimationFrame
 > setTimeout(callback)和setInterval(callback)无法保证callback函数的执行时机，很可能在帧结束的时候执行，从而导致丢帧，如下图：
-
+>
 ![image](./img/6.png)
-
+>
 > requestAnimationFrame(callback)可以保证callback函数在每帧动画开始的时候执行。
 > jQuery的animate函数就是用setTimeout来实现动画，可以通过jquery-requestAnimationFrame这个补丁来用requestAnimationFrame替代setTimeout。
 ```
@@ -83,6 +86,7 @@
 ```
 
 > 下图是requestAnimationFrame的兼容性：
+>
 ![image](./img/7.png)
 
 #### 利用webSocket来运行耗时很长的js代码
@@ -105,7 +109,7 @@
 ```
 
 > 下图是webSocket的兼容性：
-
+>
 ![image](./img/8.png)
 
 #### 把DOM元素的更新划分为多个小任务，分别在多个frame中去完成
@@ -156,7 +160,7 @@
 #### 使用flexbox替代老的布局模型。
 > 老布局：相对/绝对/浮动，flexbox：流式布局。
 > 下图是flexbox布局的兼容性
-
+>
 ![image](./img/9.png)
 
 #### 避免强制同步布局
@@ -231,5 +235,5 @@
 ![image](./img/10.png)
 
 
-[点击查看：详细的渲染原理以及浏览器内部工作机制](http://www.cnblogs.com/yanglang/p/7090120.html)
-[点击查看：如何减少reflow/repaint](http://blog.csdn.net/alex8046/article/details/43834453)
+> [点击查看：详细的渲染原理以及浏览器内部工作机制](http://www.cnblogs.com/yanglang/p/7090120.html)
+> [点击查看：如何减少reflow/repaint](http://blog.csdn.net/alex8046/article/details/43834453)
