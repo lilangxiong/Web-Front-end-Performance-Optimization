@@ -235,5 +235,5 @@
 ![image](./img/10.png)
 
 
-> [点击查看：详细的渲染原理以及浏览器内部工作机制](http://www.cnblogs.com/yanglang/p/7090120.html)
-> [点击查看：如何减少reflow/repaint](http://blog.csdn.net/alex8046/article/details/43834453)
+* [点击查看：详细的渲染原理以及浏览器内部工作机制](http://www.cnblogs.com/yanglang/p/7090120.html)
+* [点击查看：如何减少reflow/repaint](http://blog.csdn.net/alex8046/article/details/43834453)
