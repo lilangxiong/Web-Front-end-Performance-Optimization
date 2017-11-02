@@ -38,8 +38,8 @@
 * layout：有了Render Tree，浏览器就知道了网页中有哪些node、以及各个node的关系以及css定义，就可以计算出每个node在屏幕上的位置。
 * Painting，即根据计算出来的规则，通过显卡将内容显示到屏幕上。
 
-下图为webkit的渲染流程：
-![image](./img/3.png)
+> 下图为webkit的渲染流程：
+>  ![image](./img/3.png)
 
 ### [2]动画渲染流程
 * JavaScript：JavaScript实现动画效果，DOM元素操作等。
@@ -48,8 +48,8 @@
 * Paint（绘制）：在多个层上绘制DOM元素的的文字、颜色、图像、边框和阴影等。
 * Composite（渲染层合并）：按照合理的顺序合并图层然后显示到屏幕上。
 
-以下是常见的动画渲染过程：
-![image](./img/4.png)
+> 以下是常见的动画渲染过程：
+> ![image](./img/4.png)
 
 
 ## 4、Reflow（回流）/Repaint（重绘）
@@ -58,7 +58,7 @@
 
 ## 5、compositor layer（合成渲染层）
 > 一个网页通常可以包含很多层，如下所示：
-![image](./img/5.png)
+> ![image](./img/5.png)
 > 对于transform/opacity 这两种变换，浏览器不会用repaint/reflow处理，而是在已经渲染好的元素基础上进行附加工作。例如一个黑底色的div,往右飞100px, 传统JS过程是对每次修改left值后重新画一个div。而如果我们用transform:translate(0,100px) ,transition:2s 浏览器则是把这个绘制好的div单独放在一个画面层再平移这个层过去，div的几何形状，颜色不会再重复计算，而是保留在这个图层中。
 > 可以通过3d变化的元素，来集中显卡资源渲染动画，例如：translate3d、translateZ，这样能使得动画更平滑。
 
@@ -82,8 +82,8 @@
     requestAnimationFrame(updateScreen);
 ``
 
-下图是requestAnimationFrame的兼容性：
-![image](./img/7.png)
+> 下图是requestAnimationFrame的兼容性：
+> ![image](./img/7.png)
 
 #### 利用webSocket来运行耗时很长的js代码
 > JavaScript代码运行在浏览器的主线程上，与此同时，浏览器的主线程还负责样式计算、布局、绘制的工作，如果JavaScript代码运行时间过长，就会阻塞其他渲染工作，很可能会导致丢帧。
@@ -104,9 +104,9 @@
     });
 ```
 
-下图是webSocket的兼容性：
+> 下图是webSocket的兼容性：
 
-![image](./img/8.png)
+> ![image](./img/8.png)
 
 #### 把DOM元素的更新划分为多个小任务，分别在多个frame中去完成
 
@@ -155,9 +155,9 @@
 
 #### 使用flexbox替代老的布局模型。
 > 老布局：相对/绝对/浮动，flexbox：流式布局。
-下图是flexbox布局的兼容性
+> 下图是flexbox布局的兼容性
 
-![image](./img/9.png)
+> ![image](./img/9.png)
 
 #### 避免强制同步布局
 > 强制同步布局：可以强制浏览器在执行JavaScript脚本之前先执行布局过程（参见动画渲染流程图）。
@@ -226,9 +226,9 @@
     }
 ```
 
-winll-change的兼容性：
+> winll-change的兼容性：
 
-![image](./img/10.png)
+> ![image](./img/10.png)
 
 
 [点击查看：详细的渲染原理以及浏览器内部工作机制](http://www.cnblogs.com/yanglang/p/7090120.html)
